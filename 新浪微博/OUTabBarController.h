@@ -1,5 +1,5 @@
 //
-//  ViewController.h
+//  OUTabBarController.h
 //  新浪微博
 //
 //  Created by o3 on 15/4/7.
@@ -8,8 +8,6 @@
 
 #import <UIKit/UIKit.h>
 
-@interface ViewController : UIViewController
-
+@interface OUTabBarController : UITabBarController
 
 @end
-
