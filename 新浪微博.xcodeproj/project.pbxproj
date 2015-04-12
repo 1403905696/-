@@ -20,6 +20,7 @@
 		AD7BDE341AD56A5E00DDB35E /* UIBarButtonItem+Extension.m in Sources */ = {isa = PBXBuildFile; fileRef = AD7BDE311AD56A5E00DDB35E /* UIBarButtonItem+Extension.m */; };
 		AD7BDE351AD56A5E00DDB35E /* UIView+Extension.m in Sources */ = {isa = PBXBuildFile; fileRef = AD7BDE331AD56A5E00DDB35E /* UIView+Extension.m */; };
 		AD7BDE391AD5759800DDB35E /* OUTestViewController.m in Sources */ = {isa = PBXBuildFile; fileRef = AD7BDE381AD5759800DDB35E /* OUTestViewController.m */; };
+		ADB71A301ADA0721003DF543 /* OUNewFeatureViewController.m in Sources */ = {isa = PBXBuildFile; fileRef = ADB71A2F1ADA0721003DF543 /* OUNewFeatureViewController.m */; };
 /* End PBXBuildFile section */
 
 /* Begin PBXContainerItemProxy section */
@@ -61,6 +62,8 @@
 		AD7BDE361AD56C6200DDB35E /* PrefixHeader.pch */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.c.h; path = PrefixHeader.pch; sourceTree = "<group>"; };
 		AD7BDE371AD5759800DDB35E /* OUTestViewController.h */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.h; path = OUTestViewController.h; sourceTree = "<group>"; };
 		AD7BDE381AD5759800DDB35E /* OUTestViewController.m */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.objc; path = OUTestViewController.m; sourceTree = "<group>"; };
+		ADB71A2E1ADA0721003DF543 /* OUNewFeatureViewController.h */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.h; path = OUNewFeatureViewController.h; sourceTree = "<group>"; };
+		ADB71A2F1ADA0721003DF543 /* OUNewFeatureViewController.m */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.objc; path = OUNewFeatureViewController.m; sourceTree = "<group>"; };
 /* End PBXFileReference section */
 
 /* Begin PBXFrameworksBuildPhase section */
@@ -102,6 +105,7 @@
 		AD7BDDDA1AD40C4C00DDB35E /* 新浪微博 */ = {
 			isa = PBXGroup;
 			children = (
+				ADB71A2A1ADA0698003DF543 /* NewFeature */,
 				AD7BDE121AD41EE600DDB35E /* Profile */,
 				AD7BDE111AD41ED900DDB35E /* MessageCenter */,
 				AD7BDE101AD41ED100DDB35E /* Discover */,
@@ -331,6 +335,39 @@
 			path = Category;
 			sourceTree = "<group>";
 		};
+		ADB71A2A1ADA0698003DF543 /* NewFeature */ = {
+			isa = PBXGroup;
+			children = (
+				ADB71A2D1ADA06BB003DF543 /* Controller */,
+				ADB71A2C1ADA06B1003DF543 /* View */,
+				ADB71A2B1ADA06A9003DF543 /* Model */,
+			);
+			name = NewFeature;
+			sourceTree = "<group>";
+		};
+		ADB71A2B1ADA06A9003DF543 /* Model */ = {
+			isa = PBXGroup;
+			children = (
+			);
+			name = Model;
+			sourceTree = "<group>";
+		};
+		ADB71A2C1ADA06B1003DF543 /* View */ = {
+			isa = PBXGroup;
+			children = (
+			);
+			name = View;
+			sourceTree = "<group>";
+		};
+		ADB71A2D1ADA06BB003DF543 /* Controller */ = {
+			isa = PBXGroup;
+			children = (
+				ADB71A2E1ADA0721003DF543 /* OUNewFeatureViewController.h */,
+				ADB71A2F1ADA0721003DF543 /* OUNewFeatureViewController.m */,
+			);
+			name = Controller;
+			sourceTree = "<group>";
+		};
 /* End PBXGroup section */
 
 /* Begin PBXNativeTarget section */
@@ -437,6 +474,7 @@
 				AD7BDE0E1AD4184C00DDB35E /* OUTabBarController.m in Sources */,
 				AD7BDE391AD5759800DDB35E /* OUTestViewController.m in Sources */,
 				AD7BDE281AD41FAF00DDB35E /* OUDiscoverViewController.m in Sources */,
+				ADB71A301ADA0721003DF543 /* OUNewFeatureViewController.m in Sources */,
 				AD7BDE341AD56A5E00DDB35E /* UIBarButtonItem+Extension.m in Sources */,
 				AD7BDDE11AD40C4C00DDB35E /* AppDelegate.m in Sources */,
 				AD7BDDDE1AD40C4C00DDB35E /* main.m in Sources */,
@@ -619,6 +657,7 @@
 				AD7BDDFD1AD40C4C00DDB35E /* Release */,
 			);
 			defaultConfigurationIsVisible = 0;
+			defaultConfigurationName = Release;
 		};
 		AD7BDDFE1AD40C4C00DDB35E /* Build configuration list for PBXNativeTarget "新浪微博Tests" */ = {
 			isa = XCConfigurationList;
@@ -627,6 +666,7 @@
 				AD7BDE001AD40C4C00DDB35E /* Release */,
 			);
 			defaultConfigurationIsVisible = 0;
+			defaultConfigurationName = Release;
 		};
 /* End XCConfigurationList section */
 	};

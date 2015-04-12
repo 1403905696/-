@@ -8,7 +8,7 @@
 
 #import "AppDelegate.h"
 #import "OUTabBarController.h"
-
+#import "OUNewFeatureViewController.h"
 @interface AppDelegate ()
 
 @end
@@ -17,11 +17,24 @@
 
 
 - (BOOL)application:(UIApplication *)application didFinishLaunchingWithOptions:(NSDictionary *)launchOptions {
-    // Override point for customization after application launch.
+    //1.创建窗口
     self.window=[[UIWindow alloc] initWithFrame:[UIScreen mainScreen].bounds];
-    //self.window.backgroundColor=[UIColor redColor];
-    OUTabBarController *tabBar=[[OUTabBarController alloc] init];
-    self.window.rootViewController=tabBar;
+    
+    //2.设置根控制器
+    NSString *key=@"CFBundleVersion";
+    NSString *lastVersion=[[NSUserDefaults standardUserDefaults] objectForKey:key];
+    NSString *currentVersion=[NSBundle mainBundle].infoDictionary[key];
+    
+    //如果版本号相同，则直接进入主页，否则进入新特性展示页面
+    if ([currentVersion isEqualToString:lastVersion]) {
+        self.window.rootViewController=[[OUTabBarController alloc] init];
+    }else{
+        self.window.rootViewController=[[OUNewFeatureViewController alloc] init];
+        
+        //将当前的版本号存进沙盒
+        [[NSUserDefaults standardUserDefaults] setObject:currentVersion forKey:key];
+        [[NSUserDefaults standardUserDefaults] synchronize];
+    }
     [self.window makeKeyAndVisible];
     
     return YES;
