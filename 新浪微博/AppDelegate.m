@@ -9,6 +9,10 @@
 #import "AppDelegate.h"
 #import "OUTabBarController.h"
 #import "OUNewFeatureViewController.h"
+#import "OUOAuthViewController.h"
+#import "OUAccountTool.h"
+#import "OUAccount.h"
+#import "OUOAuthViewController.h"
 @interface AppDelegate ()
 
 @end
@@ -20,11 +24,18 @@
     //1.创建窗口
     self.window=[[UIWindow alloc] initWithFrame:[UIScreen mainScreen].bounds];
     
+    //2.判断用户是否已登录
+    OUAccount *account=[OUAccountTool account];
+    if (account!=nil) {
+        [self.window switchRootViewController];
+    }else{
+        self.window.rootViewController=[[OUOAuthViewController alloc] init];
+    }
+    /*
     //2.设置根控制器
     NSString *key=@"CFBundleVersion";
     NSString *lastVersion=[[NSUserDefaults standardUserDefaults] objectForKey:key];
     NSString *currentVersion=[NSBundle mainBundle].infoDictionary[key];
-    
     //如果版本号相同，则直接进入主页，否则进入新特性展示页面
     if ([currentVersion isEqualToString:lastVersion]) {
         self.window.rootViewController=[[OUTabBarController alloc] init];
@@ -35,6 +46,7 @@
         [[NSUserDefaults standardUserDefaults] setObject:currentVersion forKey:key];
         [[NSUserDefaults standardUserDefaults] synchronize];
     }
+     */
     [self.window makeKeyAndVisible];
     
     return YES;
