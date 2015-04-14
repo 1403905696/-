@@ -33,6 +33,7 @@
 		ADA04E3B1ADC0899009E717C /* OUAccount.m in Sources */ = {isa = PBXBuildFile; fileRef = ADA04E3A1ADC0899009E717C /* OUAccount.m */; };
 		ADA04E3E1ADC107E009E717C /* OUAccountTool.m in Sources */ = {isa = PBXBuildFile; fileRef = ADA04E3D1ADC107E009E717C /* OUAccountTool.m */; };
 		ADA04E451ADC17B8009E717C /* UIWindow+Extension.m in Sources */ = {isa = PBXBuildFile; fileRef = ADA04E441ADC17B8009E717C /* UIWindow+Extension.m */; };
+		ADA04E481ADD6741009E717C /* OUTitleButton.m in Sources */ = {isa = PBXBuildFile; fileRef = ADA04E471ADD6741009E717C /* OUTitleButton.m */; };
 		ADB71A301ADA0721003DF543 /* OUNewFeatureViewController.m in Sources */ = {isa = PBXBuildFile; fileRef = ADB71A2F1ADA0721003DF543 /* OUNewFeatureViewController.m */; };
 /* End PBXBuildFile section */
 
@@ -102,6 +103,8 @@
 		ADA04E3D1ADC107E009E717C /* OUAccountTool.m */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.objc; path = OUAccountTool.m; sourceTree = "<group>"; };
 		ADA04E431ADC17B8009E717C /* UIWindow+Extension.h */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.h; path = "UIWindow+Extension.h"; sourceTree = "<group>"; };
 		ADA04E441ADC17B8009E717C /* UIWindow+Extension.m */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.objc; path = "UIWindow+Extension.m"; sourceTree = "<group>"; };
+		ADA04E461ADD6741009E717C /* OUTitleButton.h */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.h; path = OUTitleButton.h; sourceTree = "<group>"; };
+		ADA04E471ADD6741009E717C /* OUTitleButton.m */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.objc; path = OUTitleButton.m; sourceTree = "<group>"; };
 		ADB71A2E1ADA0721003DF543 /* OUNewFeatureViewController.h */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.h; path = OUNewFeatureViewController.h; sourceTree = "<group>"; };
 		ADB71A2F1ADA0721003DF543 /* OUNewFeatureViewController.m */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.objc; path = OUNewFeatureViewController.m; sourceTree = "<group>"; };
 /* End PBXFileReference section */
@@ -282,6 +285,8 @@
 		AD7BDE141AD41EF800DDB35E /* View */ = {
 			isa = PBXGroup;
 			children = (
+				ADA04E461ADD6741009E717C /* OUTitleButton.h */,
+				ADA04E471ADD6741009E717C /* OUTitleButton.m */,
 			);
 			name = View;
 			sourceTree = "<group>";
@@ -583,6 +588,7 @@
 			files = (
 				AD7BDE351AD56A5E00DDB35E /* UIView+Extension.m in Sources */,
 				AD7BDE241AD41F9200DDB35E /* OUMessageCenterViewController.m in Sources */,
+				ADA04E481ADD6741009E717C /* OUTitleButton.m in Sources */,
 				AD902C5D1ADAC4A2009EF518 /* AFHTTPRequestOperationManager.m in Sources */,
 				AD7BDE211AD41F8000DDB35E /* OUProfileViewController.m in Sources */,
 				AD902C611ADAC4A2009EF518 /* AFURLConnectionOperation.m in Sources */,

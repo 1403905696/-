@@ -70,6 +70,7 @@
     [manager POST:@"https://api.weibo.com/oauth2/access_token" parameters:params  success:^(AFHTTPRequestOperation *operation, NSDictionary *responseObject) {
         //保存账户信息
         OUAccount *account=[OUAccount accountWithDict:responseObject];
+        account.createTime=[NSDate date];
         [OUAccountTool saveAccount:account];
         
         UIWindow *window=[UIApplication sharedApplication].keyWindow;

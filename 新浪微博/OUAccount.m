@@ -10,11 +10,11 @@
 #import "OUAccount.h"
 @implementation OUAccount
 
-+(instancetype)accountWithDict:(NSDictionary *)dict{
++(id)accountWithDict:(NSDictionary *)dict{
 //    if (self==[super init]) {
-//        self.access_token=dict[@"access_token"];
-//        self.expires_in=dict[@"expires_in"];
-//        self.uid=dict[@"uid"];
+//        self.access_token=@"111";//dict[@"access_token"];
+//        self.expires_in=@"111";//dict[@"expires_in"];
+//        self.uid=@"111";//dict[@"uid"];
 //        self.createTime=[NSDate date];
 //    }
 //    return self;
@@ -22,7 +22,6 @@
     account.access_token=dict[@"access_token"];
     account.expires_in=dict[@"expires_in"];
     account.uid=dict[@"uid"];
-    account.createTime=[NSDate date];
     return account;
 }
 /**
@@ -35,6 +34,7 @@
     [encoder encodeObject:self.expires_in forKey:@"expires_in"];
     [encoder encodeObject:self.uid forKey:@"uid"];
     [encoder encodeObject:self.createTime forKey:@"createTime"];
+    [encoder encodeObject:self.userName forKey:@"name"];
 }
 /**
  *  解档，从沙盒中获取对象
@@ -49,6 +49,7 @@
         self.expires_in=[decoder decodeObjectForKey:@"expires_in"];
         self.uid=[decoder decodeObjectForKey:@"uid"];
         self.createTime=[decoder decodeObjectForKey:@"createTime"];
+        self.userName=[decoder decodeObjectForKey:@"name"];
     }
     return self;
     

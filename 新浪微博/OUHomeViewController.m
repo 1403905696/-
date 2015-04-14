@@ -8,6 +8,10 @@
 
 #import "OUHomeViewController.h"
 #import "UIBarButtonItem+Extension.h"
+#import "OUTitleButton.h"
+#import "AFNetworking.h"
+#import "OUAccount.h"
+#import "OUAccountTool.h"
 @interface OUHomeViewController ()
 
 @end
@@ -17,13 +21,62 @@
 - (void)viewDidLoad {
     [super viewDidLoad];
     //设置导航栏上面的内容
-    self.navigationItem.leftBarButtonItem=[UIBarButtonItem itemWithTarget:self action:@selector(addFriendClick) image:@"navigationbar_friendsearch" highImage:@"navigationbar_friendsearch_highlighted" ];
-    self.navigationItem.rightBarButtonItem=[UIBarButtonItem itemWithTarget:self action:@selector(addFriendClick) image:@"navigationbar_pop" highImage:@"navigationbar_pop_highlighted"];
+
+    //设置导航栏
+    [self setupNav];
+    
+    //获取用户信息
+    [self setupUserInfo];
 }
 
--(void)addFriendClick{
-    NSLog(@"添加朋友按钮被点击");
+/**
+ *  设置导航栏
+ */
+-(void)setupNav{
+    self.navigationItem.leftBarButtonItem=[UIBarButtonItem itemWithTarget:self action:@selector(friendSearchClick) image:@"navigationbar_friendsearch" highImage:@"navigationbar_friendsearch_highlighted" ];
+    self.navigationItem.rightBarButtonItem=[UIBarButtonItem itemWithTarget:self action:@selector(popClick) image:@"navigationbar_pop" highImage:@"navigationbar_pop_highlighted"];
+    OUTitleButton *titleBtn=[[OUTitleButton alloc] init];
+    [titleBtn setTitle:@"coder_o3" forState:UIControlStateNormal];
+    [titleBtn addTarget:self action:@selector(titleBtnClick) forControlEvents:UIControlEventTouchUpInside];
+    self.navigationItem.titleView=titleBtn;
 }
+/**
+ *  获取用户信息
+ */
+-(void)setupUserInfo{
+    AFHTTPRequestOperationManager *manager=[AFHTTPRequestOperationManager manager];
+    
+    OUAccount *account = [OUAccountTool account];
+    NSMutableDictionary *params = [NSMutableDictionary dictionary];
+    params[@"access_token"] =account.access_token;//account.access_token;
+    params[@"uid"] = account.uid;
+    [manager GET:@"https://api.weibo.com/2/users/show.json" parameters:params success:^(AFHTTPRequestOperation *operation, NSDictionary *responseObject) {
+        //重写设置用户名
+        UIButton *titleBtn=(UIButton *)self.navigationItem.titleView;
+        [titleBtn setTitle:responseObject[@"name"] forState:UIControlStateNormal];
+        account.userName=responseObject[@"name"];
+        [OUAccountTool saveAccount:account];
+        
+    } failure:^(AFHTTPRequestOperation *operation, NSError *error) {
+        NSLog(@"请求失败");
+    }];
+
+}
+/**
+ *  添加好友按钮被点击
+ */
+-(void)friendSearchClick{
+    NSLog(@"friendSearchClick被点击");
+}
+-(void)popClick{
+    NSLog(@"popClick被点击");
+}
+-(void)titleBtnClick{
+    NSLog(@"titleBtnClick被点击");
+}
+/**
+ *  内存警告
+ */
 - (void)didReceiveMemoryWarning {
     [super didReceiveMemoryWarning];
     // Dispose of any resources that can be recreated.

@@ -22,7 +22,15 @@
  */
 @property (nonatomic,copy) NSString *uid;
 
+/**
+ *  创建时间
+ */
 @property (nonatomic,strong) NSDate *createTime;
+
+/**
+ *  用户名
+ */
+@property (nonatomic,copy) NSString *userName;
 
 +(instancetype) accountWithDict:(NSDictionary *) dict;
 @end
