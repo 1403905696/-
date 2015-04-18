@@ -12,12 +12,23 @@
 #import "AFNetworking.h"
 #import "OUAccount.h"
 #import "OUAccountTool.h"
+#import "OUStatus.h"
+#import "OUUser.h"
+#import "UIImageView+WebCache.h"
 @interface OUHomeViewController ()
+
+@property (nonatomic,strong) NSMutableArray *statuses;
 
 @end
 
 @implementation OUHomeViewController
 
+-(NSMutableArray *)statuses{
+    if (!_statuses) {
+        self.statuses=[NSMutableArray array];
+    }
+    return _statuses;
+}
 - (void)viewDidLoad {
     [super viewDidLoad];
     //设置导航栏上面的内容
@@ -27,6 +38,9 @@
     
     //获取用户信息
     [self setupUserInfo];
+    
+    //获取最新微博信息
+    [self reloadNewestStatus];
 }
 
 /**
@@ -60,7 +74,32 @@
     } failure:^(AFHTTPRequestOperation *operation, NSError *error) {
         NSLog(@"请求失败");
     }];
+}
 
+/**
+ *  加载最新微博信息
+ */
+-(void)reloadNewestStatus{
+    AFHTTPRequestOperationManager *manager=[AFHTTPRequestOperationManager manager];
+    NSMutableDictionary *params=[NSMutableDictionary dictionary];
+    OUAccount *account=[OUAccountTool account];
+    params[@"access_token"]=account.access_token;
+    [manager GET:@"https://api.weibo.com/2/statuses/friends_timeline.json" parameters:params success:^(AFHTTPRequestOperation *operation, id responseObject) {
+        
+        //将获取到的微博字典数组转为模型数组
+        NSArray *dictArray=responseObject[@"statuses"];
+        for (NSDictionary *dict in dictArray) {
+            OUStatus *status=[OUStatus statusWithDict:dict];
+            [self.statuses addObject:status];
+        }
+        
+        //刷新表格
+        [self.tableView reloadData];
+        
+        
+    } failure:^(AFHTTPRequestOperation *operation, NSError *error) {
+        NSLog(@"加载出错");
+    }];
 }
 /**
  *  添加好友按钮被点击
@@ -89,13 +128,21 @@
 }*/
 
 -(NSInteger)tableView:(UITableView *)tableView numberOfRowsInSection:(NSInteger)section{
-    return 100;
+    return self.statuses.count;
 }
 
 -(UITableViewCell *)tableView:(UITableView *)tableView cellForRowAtIndexPath:(NSIndexPath *)indexPath{
-    UITableViewCell *cell=[[UITableViewCell alloc] init];
-    cell.textLabel.text=@"111";
-    cell.textLabel.backgroundColor=[UIColor blackColor];
+    NSString *ID=@"status";
+    UITableViewCell *cell=[tableView dequeueReusableCellWithIdentifier:ID];
+    if (!cell) {
+        cell=[[UITableViewCell alloc] initWithStyle:UITableViewCellStyleSubtitle reuseIdentifier:ID];
+    }
+    OUStatus *status=self.statuses[indexPath.row];
+    OUUser *user=status.user;
+    cell.textLabel.text=user.name;
+    cell.detailTextLabel.text=status.text;
+    [cell.imageView sd_setImageWithURL:[NSURL URLWithString:user.profile_image_url] placeholderImage:[UIImage imageNamed:@"tabbar_profile"]];
+    
     return cell;
 }
 /*
