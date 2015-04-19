@@ -19,6 +19,7 @@
 
 @property (nonatomic,strong) NSMutableArray *statuses;
 
+
 @end
 
 @implementation OUHomeViewController
@@ -39,8 +40,11 @@
     //获取用户信息
     [self setupUserInfo];
     
+    //集成下拉刷新功能
+    [self setupDownRefresh];
+    
     //获取最新微博信息
-    [self reloadNewestStatus];
+    //[self loadNewestStatuses];
 }
 
 /**
@@ -75,30 +79,90 @@
         NSLog(@"请求失败");
     }];
 }
+/**
+ *  集成下拉刷新功能
+ */
+-(void)setupDownRefresh{
+    UIRefreshControl *refreshControl=[[UIRefreshControl alloc] init];
+    [refreshControl addTarget:self action:@selector(loadNewestStatuses:) forControlEvents:UIControlEventValueChanged];
+    [self.tableView addSubview:refreshControl];
+    //马上加载数据
+    [refreshControl beginRefreshing];
+    [self loadNewestStatuses:refreshControl];
+    
+}
 
 /**
  *  加载最新微博信息
  */
--(void)reloadNewestStatus{
+-(void)loadNewestStatuses:(UIRefreshControl *) refreshControl{
     AFHTTPRequestOperationManager *manager=[AFHTTPRequestOperationManager manager];
     NSMutableDictionary *params=[NSMutableDictionary dictionary];
     OUAccount *account=[OUAccountTool account];
     params[@"access_token"]=account.access_token;
+    
+    //取出刚加载的微博里最前面的一条，获取比此更新的微博
+    OUStatus *status=self.statuses.firstObject;
+    if (status) {
+        params[@"since_id"]=status.idstr;
+    }
     [manager GET:@"https://api.weibo.com/2/statuses/friends_timeline.json" parameters:params success:^(AFHTTPRequestOperation *operation, id responseObject) {
         
         //将获取到的微博字典数组转为模型数组
         NSArray *dictArray=responseObject[@"statuses"];
+        
+        NSMutableArray *newStatusesArray=[NSMutableArray array];
         for (NSDictionary *dict in dictArray) {
             OUStatus *status=[OUStatus statusWithDict:dict];
-            [self.statuses addObject:status];
+            [newStatusesArray addObject:status];
         }
+        NSRange range=NSMakeRange(0, newStatusesArray.count);
+        NSIndexSet *set=[NSIndexSet indexSetWithIndexesInRange:range];
+        [self.statuses insertObjects:newStatusesArray atIndexes:set];
         
         //刷新表格
         [self.tableView reloadData];
+        [refreshControl endRefreshing];
+        
+        [self showNewestStatusesCount:newStatusesArray.count];
         
         
     } failure:^(AFHTTPRequestOperation *operation, NSError *error) {
         NSLog(@"加载出错");
+    }];
+}
+
+/**
+ *  显示最新微博数
+ *
+ *  @param count <#count description#>
+ */
+-(void) showNewestStatusesCount:(int)count{
+    UILabel *lable=[[UILabel alloc]init];
+    lable.height=30;
+    lable.width=[UIScreen mainScreen].bounds.size.width;
+    [lable setBackgroundColor:[UIColor redColor]];
+    if (count==0) {
+        lable.text=@"没有新的微博数据，请重试";
+    }else{
+        lable.text=[NSString stringWithFormat:@"共有%d条微博数据",count];
+    }
+    lable.y=64-lable.height;
+    lable.textAlignment=NSTextAlignmentCenter;
+    lable.font=[UIFont systemFontOfSize:16];
+    lable.textColor=[UIColor whiteColor];
+    [self.navigationController.view insertSubview:lable belowSubview:self.navigationController.navigationBar];
+    
+    //通过动画，慢慢显示
+    [UIView animateWithDuration:1.0 animations:^{
+        lable.transform=CGAffineTransformMakeTranslation(0, lable.height);
+    } completion:^(BOOL finished) {
+        //延迟1秒后，lable再恢复回原来的位置
+        [UIView animateWithDuration:0.5 delay:0.5 options:UIViewAnimationOptionCurveLinear animations:^{
+            lable.transform=CGAffineTransformIdentity;
+        } completion:^(BOOL finished) {
+            [lable removeFromSuperview];
+        }];
     }];
 }
 /**
