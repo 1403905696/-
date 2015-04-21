@@ -15,6 +15,7 @@
 #import "OUStatus.h"
 #import "OUUser.h"
 #import "UIImageView+WebCache.h"
+#import "OULoadMoreFooter.h"
 @interface OUHomeViewController ()
 
 @property (nonatomic,strong) NSMutableArray *statuses;
@@ -43,10 +44,17 @@
     //集成下拉刷新功能
     [self setupDownRefresh];
     
+    //集成上拉加载更多的功能
+    [self setupUpRefresh];
     //获取最新微博信息
     //[self loadNewestStatuses];
 }
 
+-(void)setupUpRefresh{
+    OULoadMoreFooter *footer=[OULoadMoreFooter footer];
+    footer.hidden=YES;
+    self.tableView.tableFooterView=footer;
+}
 /**
  *  设置导航栏
  */
@@ -131,6 +139,44 @@
         NSLog(@"加载出错");
     }];
 }
+/**
+ *  加载更多的微博数据
+ */
+-(void)loadMoreStatuses{
+    AFHTTPRequestOperationManager *manager=[AFHTTPRequestOperationManager manager];
+    NSMutableDictionary *params=[NSMutableDictionary dictionary];
+    OUAccount *account=[OUAccountTool account];
+    params[@"access_token"]=account.access_token;
+    
+    //取出刚加载的微博里最前面的一条，获取比此更新的微博
+    OUStatus *lastStatus=self.statuses.lastObject;
+    if (lastStatus) {
+        long long maxID=lastStatus.idstr.longLongValue-1;
+        params[@"max_id"]=@(maxID);
+    }
+    [manager GET:@"https://api.weibo.com/2/statuses/friends_timeline.json" parameters:params success:^(AFHTTPRequestOperation *operation, id responseObject) {
+        
+        //将获取到的微博字典数组转为模型数组
+        NSArray *dictArray=responseObject[@"statuses"];
+        
+        NSMutableArray *newStatusesArray=[NSMutableArray array];
+        for (NSDictionary *dict in dictArray) {
+            OUStatus *status=[OUStatus statusWithDict:dict];
+            [newStatusesArray addObject:status];
+        }
+        [self.statuses addObjectsFromArray:newStatusesArray];
+        
+        //刷新表格
+        [self.tableView reloadData];
+         
+         self.tableView.tableFooterView.hidden=YES;
+        
+        
+    } failure:^(AFHTTPRequestOperation *operation, NSError *error) {
+        NSLog(@"加载出错");
+        self.tableView.tableFooterView.hidden=YES;
+    }];
+}
 
 /**
  *  显示最新微博数
@@ -186,10 +232,10 @@
 }
 
 #pragma mark --Table view data source
-/*
+
 -(NSInteger)numberOfSectionsInTableView:(UITableView *)tableView{
     return 1;
-}*/
+}
 
 -(NSInteger)tableView:(UITableView *)tableView numberOfRowsInSection:(NSInteger)section{
     return self.statuses.count;
@@ -202,6 +248,7 @@
         cell=[[UITableViewCell alloc] initWithStyle:UITableViewCellStyleSubtitle reuseIdentifier:ID];
     }
     OUStatus *status=self.statuses[indexPath.row];
+    NSLog(@"%d",indexPath.row);
     OUUser *user=status.user;
     cell.textLabel.text=user.name;
     cell.detailTextLabel.text=status.text;
@@ -209,14 +256,23 @@
     
     return cell;
 }
-/*
-#pragma mark - Navigation
 
-// In a storyboard-based application, you will often want to do a little preparation before navigation
-- (void)prepareForSegue:(UIStoryboardSegue *)segue sender:(id)sender {
-    // Get the new view controller using [segue destinationViewController].
-    // Pass the selected object to the new view controller.
+/**
+ *  移到最后一列时，显示上拉刷新控件
+ *
+ *  @param scrollView <#scrollView description#>
+ */
+-(void)scrollViewDidScroll:(UIScrollView *)scrollView{
+    if (self.statuses.count==0 ||self.tableView.tableFooterView.isHidden==NO) {
+        return;
+    }
+    CGFloat offsetY=scrollView.contentOffset.y;
+    CGFloat judgeOffsetY=scrollView.contentSize.height+scrollView.contentInset.bottom-scrollView.height-self.tableView.tableFooterView.height;
+    if (offsetY>=judgeOffsetY) {
+        [self loadMoreStatuses];
+        self.tableView.tableFooterView.hidden=NO;
+        
+    }
 }
-*/
 
 @end
