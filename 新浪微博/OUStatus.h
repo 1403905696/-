@@ -21,7 +21,14 @@
 /**
  *  微博作者的用户信息字段
  */
-@property (nonatomic,strong)OUUser *user;
+@property (nonatomic,strong) OUUser *user;
+
+@property (nonatomic,strong) NSString *created_at;
+
+/**
+ *  微博来源
+ */
+@property (nonatomic,strong) NSString *source;
 
 -(instancetype) initWithDict:(NSDictionary *)dict;
 +(instancetype) statusWithDict:(NSDictionary *)dict;

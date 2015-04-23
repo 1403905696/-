@@ -16,6 +16,8 @@
         self.idstr=dict[@"idstr"];
         self.text=dict[@"text"];
         self.user=[OUUser userWithDict:dict[@"user"]];
+        self.created_at=dict[@"created_at"];
+        self.source=dict[@"source"];
     }
     return self;
 }

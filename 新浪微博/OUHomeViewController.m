@@ -16,20 +16,22 @@
 #import "OUUser.h"
 #import "UIImageView+WebCache.h"
 #import "OULoadMoreFooter.h"
+#import "OUStatusCell.h"
+#import "OUStatusFrame.h"
 @interface OUHomeViewController ()
 
-@property (nonatomic,strong) NSMutableArray *statuses;
+@property (nonatomic,strong) NSMutableArray *statusFrames;
 
 
 @end
 
 @implementation OUHomeViewController
 
--(NSMutableArray *)statuses{
-    if (!_statuses) {
-        self.statuses=[NSMutableArray array];
+-(NSMutableArray *)statusFrames{
+    if (!_statusFrames) {
+        self.statusFrames=[NSMutableArray array];
     }
-    return _statuses;
+    return _statusFrames;
 }
 - (void)viewDidLoad {
     [super viewDidLoad];
@@ -110,7 +112,7 @@
     params[@"access_token"]=account.access_token;
     
     //取出刚加载的微博里最前面的一条，获取比此更新的微博
-    OUStatus *status=self.statuses.firstObject;
+    OUStatus *status=[self.statusFrames.firstObject status];
     if (status) {
         params[@"since_id"]=status.idstr;
     }
@@ -122,11 +124,13 @@
         NSMutableArray *newStatusesArray=[NSMutableArray array];
         for (NSDictionary *dict in dictArray) {
             OUStatus *status=[OUStatus statusWithDict:dict];
-            [newStatusesArray addObject:status];
+            OUStatusFrame *statusFrame=[[OUStatusFrame alloc] init];
+            statusFrame.status=status;
+            [newStatusesArray addObject:statusFrame];
         }
         NSRange range=NSMakeRange(0, newStatusesArray.count);
         NSIndexSet *set=[NSIndexSet indexSetWithIndexesInRange:range];
-        [self.statuses insertObjects:newStatusesArray atIndexes:set];
+        [self.statusFrames insertObjects:newStatusesArray atIndexes:set];
         
         //刷新表格
         [self.tableView reloadData];
@@ -149,7 +153,7 @@
     params[@"access_token"]=account.access_token;
     
     //取出刚加载的微博里最前面的一条，获取比此更新的微博
-    OUStatus *lastStatus=self.statuses.lastObject;
+    OUStatus *lastStatus=[self.statusFrames.lastObject status];
     if (lastStatus) {
         long long maxID=lastStatus.idstr.longLongValue-1;
         params[@"max_id"]=@(maxID);
@@ -162,9 +166,10 @@
         NSMutableArray *newStatusesArray=[NSMutableArray array];
         for (NSDictionary *dict in dictArray) {
             OUStatus *status=[OUStatus statusWithDict:dict];
-            [newStatusesArray addObject:status];
-        }
-        [self.statuses addObjectsFromArray:newStatusesArray];
+            OUStatusFrame *statusFrame=[[OUStatusFrame alloc] init];
+            statusFrame.status=status;
+            [newStatusesArray addObject:statusFrame];        }
+        [self.statusFrames addObjectsFromArray:newStatusesArray];
         
         //刷新表格
         [self.tableView reloadData];
@@ -238,22 +243,18 @@
 }
 
 -(NSInteger)tableView:(UITableView *)tableView numberOfRowsInSection:(NSInteger)section{
-    return self.statuses.count;
+    return self.statusFrames.count;
 }
 
 -(UITableViewCell *)tableView:(UITableView *)tableView cellForRowAtIndexPath:(NSIndexPath *)indexPath{
-    NSString *ID=@"status";
-    UITableViewCell *cell=[tableView dequeueReusableCellWithIdentifier:ID];
-    if (!cell) {
-        cell=[[UITableViewCell alloc] initWithStyle:UITableViewCellStyleSubtitle reuseIdentifier:ID];
-    }
-    OUStatus *status=self.statuses[indexPath.row];
-    NSLog(@"%d",indexPath.row);
-    OUUser *user=status.user;
-    cell.textLabel.text=user.name;
-    cell.detailTextLabel.text=status.text;
-    [cell.imageView sd_setImageWithURL:[NSURL URLWithString:user.profile_image_url] placeholderImage:[UIImage imageNamed:@"tabbar_profile"]];
     
+    //OUStatus *status=self.statuses[indexPath.row];
+    
+    //OUUser *user=status.user;
+    
+    OUStatusFrame *statuFrame=self.statusFrames[indexPath.row];
+    OUStatusCell *cell=[OUStatusCell cellWithTableView:tableView];
+    cell.statusFrame=statuFrame;
     return cell;
 }
 
@@ -263,7 +264,7 @@
  *  @param scrollView <#scrollView description#>
  */
 -(void)scrollViewDidScroll:(UIScrollView *)scrollView{
-    if (self.statuses.count==0 ||self.tableView.tableFooterView.isHidden==NO) {
+    if (self.statusFrames.count==0 ||self.tableView.tableFooterView.isHidden==NO) {
         return;
     }
     CGFloat offsetY=scrollView.contentOffset.y;
@@ -275,4 +276,9 @@
     }
 }
 
+- (CGFloat)tableView:(UITableView *)tableView heightForRowAtIndexPath:(NSIndexPath *)indexPath
+{
+    OUStatusFrame *frame = self.statusFrames[indexPath.row];
+    return frame.cellHeight;
+}
 @end

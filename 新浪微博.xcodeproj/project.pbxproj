@@ -9,6 +9,8 @@
 /* Begin PBXBuildFile section */
 		AD2EC3FB1AE68BF80065A7B9 /* OULoadMoreFooter.xib in Resources */ = {isa = PBXBuildFile; fileRef = AD2EC3FA1AE68BF80065A7B9 /* OULoadMoreFooter.xib */; };
 		AD2EC3FE1AE68CC90065A7B9 /* OULoadMoreFooter.m in Sources */ = {isa = PBXBuildFile; fileRef = AD2EC3FD1AE68CC90065A7B9 /* OULoadMoreFooter.m */; };
+		AD2EC4011AE93DB00065A7B9 /* OUStatusFrame.m in Sources */ = {isa = PBXBuildFile; fileRef = AD2EC4001AE93DB00065A7B9 /* OUStatusFrame.m */; };
+		AD2EC4071AE9469C0065A7B9 /* OUStatusCell.m in Sources */ = {isa = PBXBuildFile; fileRef = AD2EC4061AE9469C0065A7B9 /* OUStatusCell.m */; };
 		AD7BDDDE1AD40C4C00DDB35E /* main.m in Sources */ = {isa = PBXBuildFile; fileRef = AD7BDDDD1AD40C4C00DDB35E /* main.m */; };
 		AD7BDDE11AD40C4C00DDB35E /* AppDelegate.m in Sources */ = {isa = PBXBuildFile; fileRef = AD7BDDE01AD40C4C00DDB35E /* AppDelegate.m */; };
 		AD7BDDE91AD40C4C00DDB35E /* Images.xcassets in Resources */ = {isa = PBXBuildFile; fileRef = AD7BDDE81AD40C4C00DDB35E /* Images.xcassets */; };
@@ -71,6 +73,10 @@
 		AD2EC3FA1AE68BF80065A7B9 /* OULoadMoreFooter.xib */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = file.xib; path = OULoadMoreFooter.xib; sourceTree = "<group>"; };
 		AD2EC3FC1AE68CC90065A7B9 /* OULoadMoreFooter.h */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.h; path = OULoadMoreFooter.h; sourceTree = "<group>"; };
 		AD2EC3FD1AE68CC90065A7B9 /* OULoadMoreFooter.m */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.objc; path = OULoadMoreFooter.m; sourceTree = "<group>"; };
+		AD2EC3FF1AE93DB00065A7B9 /* OUStatusFrame.h */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.h; path = OUStatusFrame.h; sourceTree = "<group>"; };
+		AD2EC4001AE93DB00065A7B9 /* OUStatusFrame.m */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.objc; path = OUStatusFrame.m; sourceTree = "<group>"; };
+		AD2EC4051AE9469C0065A7B9 /* OUStatusCell.h */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.h; path = OUStatusCell.h; sourceTree = "<group>"; };
+		AD2EC4061AE9469C0065A7B9 /* OUStatusCell.m */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.objc; path = OUStatusCell.m; sourceTree = "<group>"; };
 		AD7BDDD81AD40C4C00DDB35E /* 新浪微博.app */ = {isa = PBXFileReference; explicitFileType = wrapper.application; includeInIndex = 0; path = "新浪微博.app"; sourceTree = BUILT_PRODUCTS_DIR; };
 		AD7BDDDC1AD40C4C00DDB35E /* Info.plist */ = {isa = PBXFileReference; lastKnownFileType = text.plist.xml; path = Info.plist; sourceTree = "<group>"; };
 		AD7BDDDD1AD40C4C00DDB35E /* main.m */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.c.objc; path = main.m; sourceTree = "<group>"; };
@@ -342,6 +348,8 @@
 				ADE3416E1AE29F8A0059B596 /* OUUser.m */,
 				ADE341701AE2A3C50059B596 /* OUStatus.h */,
 				ADE341711AE2A3C50059B596 /* OUStatus.m */,
+				AD2EC3FF1AE93DB00065A7B9 /* OUStatusFrame.h */,
+				AD2EC4001AE93DB00065A7B9 /* OUStatusFrame.m */,
 			);
 			name = Model;
 			sourceTree = "<group>";
@@ -354,6 +362,8 @@
 				AD2EC3FA1AE68BF80065A7B9 /* OULoadMoreFooter.xib */,
 				AD2EC3FC1AE68CC90065A7B9 /* OULoadMoreFooter.h */,
 				AD2EC3FD1AE68CC90065A7B9 /* OULoadMoreFooter.m */,
+				AD2EC4051AE9469C0065A7B9 /* OUStatusCell.h */,
+				AD2EC4061AE9469C0065A7B9 /* OUStatusCell.m */,
 			);
 			name = View;
 			sourceTree = "<group>";
@@ -718,7 +728,9 @@
 				AD902C5C1ADAC4A2009EF518 /* AFHTTPRequestOperation.m in Sources */,
 				ADA04E451ADC17B8009E717C /* UIWindow+Extension.m in Sources */,
 				ADE3419B1AE2AE500059B596 /* SDWebImageDecoder.m in Sources */,
+				AD2EC4011AE93DB00065A7B9 /* OUStatusFrame.m in Sources */,
 				AD7BDE0E1AD4184C00DDB35E /* OUTabBarController.m in Sources */,
+				AD2EC4071AE9469C0065A7B9 /* OUStatusCell.m in Sources */,
 				AD902C601ADAC4A2009EF518 /* AFSecurityPolicy.m in Sources */,
 				ADE341A51AE2AE500059B596 /* UIImageView+WebCache.m in Sources */,
 				ADE3419E1AE2AE500059B596 /* SDWebImageManager.m in Sources */,
