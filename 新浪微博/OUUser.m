@@ -16,6 +16,10 @@
         self.idstr=dict[@"idstr"];
         self.name=dict[@"name"];
         self.profile_image_url=dict[@"profile_image_url"];
+        self.mbtype=(int)dict[@"mbtype"];
+        self.mbrank=(int)dict[@"mbrank"];
+        self.vip=(int)dict[@"mbtype"]>2;
+        
     }
     return self;
 }

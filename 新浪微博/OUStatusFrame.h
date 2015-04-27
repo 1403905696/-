@@ -7,6 +7,14 @@
 //
 
 #import <Foundation/Foundation.h>
+// 昵称字体
+#define OUStatusCellNameFont [UIFont systemFontOfSize:15]
+// 时间字体
+#define OUStatusCellTimeFont [UIFont systemFontOfSize:12]
+// 来源字体
+#define OUStatusCellSourceFont OUStatusCellTimeFont
+// 正文字体
+#define OUStatusCellContentFont [UIFont systemFontOfSize:14]
 @class OUStatus;
 @interface OUStatusFrame : NSObject
 
