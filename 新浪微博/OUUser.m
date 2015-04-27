@@ -11,21 +11,21 @@
 
 @implementation OUUser
 
--(instancetype)initWithDict:(NSDictionary *)dict{
-    if (self=[super init]) {
-        self.idstr=dict[@"idstr"];
-        self.name=dict[@"name"];
-        self.profile_image_url=dict[@"profile_image_url"];
-        self.mbtype=(int)dict[@"mbtype"];
-        self.mbrank=(int)dict[@"mbrank"];
-        self.vip=(int)dict[@"mbtype"]>2;
-        
-    }
-    return self;
-}
-
-+(instancetype)userWithDict:(NSDictionary *)dict{
-    return [[self alloc] initWithDict:dict];
-}
+//-(instancetype)initWithDict:(NSDictionary *)dict{
+//    if (self=[super init]) {
+//        self.idstr=dict[@"idstr"];
+//        self.name=dict[@"name"];
+//        self.profile_image_url=dict[@"profile_image_url"];
+//        self.mbtype=(int)dict[@"mbtype"];
+//        self.mbrank=(int)dict[@"mbrank"];
+//        self.vip=(int)dict[@"mbtype"]>2;
+//        
+//    }
+//    return self;
+//}
+//
+//+(instancetype)userWithDict:(NSDictionary *)dict{
+//    return [[self alloc] initWithDict:dict];
+//}
 
 @end

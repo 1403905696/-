@@ -11,18 +11,18 @@
 #import "OUUser.h"
 @implementation OUStatus
 
--(instancetype)initWithDict:(NSDictionary *)dict{
-    if (self=[super init]) {
-        self.idstr=dict[@"idstr"];
-        self.text=dict[@"text"];
-        self.user=[OUUser userWithDict:dict[@"user"]];
-        self.created_at=dict[@"created_at"];
-        self.source=dict[@"source"];
-    }
-    return self;
-}
-
-+(instancetype)statusWithDict:(NSDictionary *)dict{
-    return [[self alloc] initWithDict:dict];
-}
+//-(instancetype)initWithDict:(NSDictionary *)dict{
+//    if (self=[super init]) {
+//        self.idstr=dict[@"idstr"];
+//        self.text=dict[@"text"];
+//        self.user=[OUUser userWithDict:dict[@"user"]];
+//        self.created_at=dict[@"created_at"];
+//        self.source=dict[@"source"];
+//    }
+//    return self;
+//}
+//
+//+(instancetype)statusWithDict:(NSDictionary *)dict{
+//    return [[self alloc] initWithDict:dict];
+//}
 @end

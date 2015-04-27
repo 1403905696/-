@@ -18,6 +18,7 @@
 #import "OULoadMoreFooter.h"
 #import "OUStatusCell.h"
 #import "OUStatusFrame.h"
+#import "MJExtension.h"
 @interface OUHomeViewController ()
 
 @property (nonatomic,strong) NSMutableArray *statusFrames;
@@ -56,6 +57,20 @@
     OULoadMoreFooter *footer=[OULoadMoreFooter footer];
     footer.hidden=YES;
     self.tableView.tableFooterView=footer;
+}
+
+/**
+ *  将HWStatus模型转为HWStatusFrame模型
+ */
+- (NSArray *)stausFramesWithStatuses:(NSArray *)statuses
+{
+    NSMutableArray *frames = [NSMutableArray array];
+    for (OUStatus *status in statuses) {
+        OUStatusFrame *f = [[OUStatusFrame alloc] init];
+        f.status = status;
+        [frames addObject:f];
+    }
+    return frames;
 }
 /**
  *  设置导航栏
@@ -119,24 +134,27 @@
     [manager GET:@"https://api.weibo.com/2/statuses/friends_timeline.json" parameters:params success:^(AFHTTPRequestOperation *operation, id responseObject) {
         
         //将获取到的微博字典数组转为模型数组
-        NSArray *dictArray=responseObject[@"statuses"];
-        
-        NSMutableArray *newStatusesArray=[NSMutableArray array];
-        for (NSDictionary *dict in dictArray) {
-            OUStatus *status=[OUStatus statusWithDict:dict];
-            OUStatusFrame *statusFrame=[[OUStatusFrame alloc] init];
-            statusFrame.status=status;
-            [newStatusesArray addObject:statusFrame];
-        }
+//        NSArray *dictArray=responseObject[@"statuses"];
+//        
+//        NSMutableArray *newStatusesArray=[NSMutableArray array];
+//        for (NSDictionary *dict in dictArray) {
+//            OUStatus *status=[OUStatus statusWithDict:dict];
+//            OUStatusFrame *statusFrame=[[OUStatusFrame alloc] init];
+//            statusFrame.status=status;
+//            [newStatusesArray addObject:statusFrame];
+//        }
+        NSArray *newStatusesArray=[OUStatus objectArrayWithKeyValuesArray:responseObject[@"statuses"]];
         NSRange range=NSMakeRange(0, newStatusesArray.count);
         NSIndexSet *set=[NSIndexSet indexSetWithIndexesInRange:range];
-        [self.statusFrames insertObjects:newStatusesArray atIndexes:set];
+        
+        NSArray *newStatusFramesArray=[self stausFramesWithStatuses:newStatusesArray];
+        [self.statusFrames insertObjects:newStatusFramesArray atIndexes:set];
         
         //刷新表格
         [self.tableView reloadData];
         [refreshControl endRefreshing];
         
-        [self showNewestStatusesCount:newStatusesArray.count];
+        [self showNewestStatusesCount:newStatusFramesArray.count];
         
         
     } failure:^(AFHTTPRequestOperation *operation, NSError *error) {
@@ -161,15 +179,17 @@
     [manager GET:@"https://api.weibo.com/2/statuses/friends_timeline.json" parameters:params success:^(AFHTTPRequestOperation *operation, id responseObject) {
         
         //将获取到的微博字典数组转为模型数组
-        NSArray *dictArray=responseObject[@"statuses"];
-        
-        NSMutableArray *newStatusesArray=[NSMutableArray array];
-        for (NSDictionary *dict in dictArray) {
-            OUStatus *status=[OUStatus statusWithDict:dict];
-            OUStatusFrame *statusFrame=[[OUStatusFrame alloc] init];
-            statusFrame.status=status;
-            [newStatusesArray addObject:statusFrame];        }
-        [self.statusFrames addObjectsFromArray:newStatusesArray];
+//        NSArray *dictArray=responseObject[@"statuses"];
+//        
+//        NSMutableArray *newStatusesArray=[NSMutableArray array];
+//        for (NSDictionary *dict in dictArray) {
+//            OUStatus *status=[OUStatus statusWithDict:dict];
+//            OUStatusFrame *statusFrame=[[OUStatusFrame alloc] init];
+//            statusFrame.status=status;
+//            [newStatusesArray addObject:statusFrame];        }
+        NSArray *newStatusesArray=[OUStatus objectArrayWithKeyValuesArray:responseObject[@"statuses"]];
+        NSArray *newStatusFramesArray=[self stausFramesWithStatuses:newStatusesArray];
+        [self.statusFrames addObjectsFromArray:newStatusFramesArray];
         
         //刷新表格
         [self.tableView reloadData];
