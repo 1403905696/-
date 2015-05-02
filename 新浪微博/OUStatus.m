@@ -9,7 +9,12 @@
 
 #import "OUStatus.h"
 #import "OUUser.h"
+#import "OUPhoto.h"
+#import "MJExtension.h"
 @implementation OUStatus
+-(NSDictionary *)objectClassInArray{
+    return @{@"pic_urls":[OUPhoto class]};
+}
 
 //-(instancetype)initWithDict:(NSDictionary *)dict{
 //    if (self=[super init]) {

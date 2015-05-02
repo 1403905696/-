@@ -30,6 +30,8 @@
  */
 @property (nonatomic,strong) NSString *source;
 
+@property (nonatomic,strong) NSArray *pic_urls;
+
 -(instancetype) initWithDict:(NSDictionary *)dict;
 +(instancetype) statusWithDict:(NSDictionary *)dict;
 @end

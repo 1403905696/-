@@ -65,11 +65,24 @@
     CGSize contentSize=[self sizeWithText:status.text font:OUStatusCellContentFont maxW:maxW];
     self.contentLableF=(CGRect){{contentX,contentY},contentSize};
     
+    //配图
+    CGFloat originalH=0;
+    if (status.pic_urls.count>0) {
+        CGFloat photoX=iconX;
+        CGFloat photoY=CGRectGetMaxY(self.contentLableF)+OUStatusCellBorderW;
+        CGFloat photoW=100;
+        CGFloat photoH=100;
+        self.photoViewF=CGRectMake(photoX, photoY, photoW, photoW);
+        originalH=CGRectGetMaxY(self.photoViewF)+OUStatusCellBorderW;
+    }else{
+        originalH=CGRectGetMaxY(self.contentLableF)+OUStatusCellBorderW;
+    }
+    
     //整体
     CGFloat originalX=0;
     CGFloat originalY=0;
     CGFloat originalW=cellWidth;
-    CGFloat originalH=CGRectGetMaxY(self.contentLableF)+OUStatusCellBorderW;
+    //CGFloat originalH=CGRectGetMaxY(self.contentLableF)+OUStatusCellBorderW;
     
     self.originalViewF=CGRectMake(originalX, originalY, originalW, originalH);
     self.cellHeight=CGRectGetMaxY(self.originalViewF);

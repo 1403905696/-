@@ -7,6 +7,7 @@
 	objects = {
 
 /* Begin PBXBuildFile section */
+		AD0D42DA1AF511B100700010 /* OUPhoto.m in Sources */ = {isa = PBXBuildFile; fileRef = AD0D42D91AF511B100700010 /* OUPhoto.m */; };
 		AD2E451B1AEE879300BB8BAC /* MJArgument.m in Sources */ = {isa = PBXBuildFile; fileRef = AD2E45051AEE879300BB8BAC /* MJArgument.m */; };
 		AD2E451C1AEE879300BB8BAC /* MJConst.m in Sources */ = {isa = PBXBuildFile; fileRef = AD2E45071AEE879300BB8BAC /* MJConst.m */; };
 		AD2E451D1AEE879300BB8BAC /* MJFoundation.m in Sources */ = {isa = PBXBuildFile; fileRef = AD2E450A1AEE879300BB8BAC /* MJFoundation.m */; };
@@ -81,6 +82,8 @@
 /* End PBXContainerItemProxy section */
 
 /* Begin PBXFileReference section */
+		AD0D42D81AF511B100700010 /* OUPhoto.h */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.h; path = OUPhoto.h; sourceTree = "<group>"; };
+		AD0D42D91AF511B100700010 /* OUPhoto.m */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.objc; path = OUPhoto.m; sourceTree = "<group>"; };
 		AD2E45041AEE879300BB8BAC /* MJArgument.h */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.h; path = MJArgument.h; sourceTree = "<group>"; };
 		AD2E45051AEE879300BB8BAC /* MJArgument.m */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.objc; path = MJArgument.m; sourceTree = "<group>"; };
 		AD2E45061AEE879300BB8BAC /* MJConst.h */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.h; path = MJConst.h; sourceTree = "<group>"; };
@@ -414,6 +417,8 @@
 				ADE341711AE2A3C50059B596 /* OUStatus.m */,
 				AD2EC3FF1AE93DB00065A7B9 /* OUStatusFrame.h */,
 				AD2EC4001AE93DB00065A7B9 /* OUStatusFrame.m */,
+				AD0D42D81AF511B100700010 /* OUPhoto.h */,
+				AD0D42D91AF511B100700010 /* OUPhoto.m */,
 			);
 			name = Model;
 			sourceTree = "<group>";
@@ -827,6 +832,7 @@
 				AD7BDDE11AD40C4C00DDB35E /* AppDelegate.m in Sources */,
 				ADE341721AE2A3C50059B596 /* OUStatus.m in Sources */,
 				AD902C631ADAC4A2009EF518 /* AFURLResponseSerialization.m in Sources */,
+				AD0D42DA1AF511B100700010 /* OUPhoto.m in Sources */,
 				AD7BDDDE1AD40C4C00DDB35E /* main.m in Sources */,
 			);
 			runOnlyForDeploymentPostprocessing = 0;

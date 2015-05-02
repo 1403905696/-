@@ -11,13 +11,14 @@
 #import "UIImageView+WebCache.h"
 #import "OUStatus.h"
 #import "OUUser.h"
+#import "OUPhoto.h"
 @interface OUStatusCell()
 @property (nonatomic,strong) UIView *originalView;
 @property (nonatomic,strong) UIImageView *iconView;
 @property (nonatomic,strong) UILabel *nameLable;
 @property (nonatomic,strong) UIImageView *vipView;
 @property (nonatomic,strong) UILabel *timeLable;
-@property (nonatomic,strong) UIView *photoView;
+@property (nonatomic,strong) UIImageView *photoView;
 @property (nonatomic,strong) UILabel *contentLable;
 @end
 @implementation OUStatusCell
@@ -68,6 +69,12 @@
         contentLable.font=OUStatusCellContentFont;
         [self.originalView addSubview:contentLable];
         
+        //配图
+        UIImageView *photoView=[[UIImageView alloc]init];
+        self.photoView=photoView;
+        [self.originalView addSubview:photoView];
+        
+        
         contentLable.numberOfLines = 0;
         self.contentLable=contentLable;
         
@@ -105,6 +112,14 @@
     
     self.contentLable.text=status.text;
     self.contentLable.frame=statusFrame.contentLableF;
+    
+    if (status.pic_urls.count>0) {
+        OUPhoto *photo=status.pic_urls[0];
+        //配图
+        [self.photoView sd_setImageWithURL:[NSURL URLWithString:photo.thumbnail_pic] placeholderImage:[UIImage imageNamed:@"tabbar_profile"]];
+        self.photoView.frame=statusFrame.photoViewF;
+
+    }
     
     }
 @end
