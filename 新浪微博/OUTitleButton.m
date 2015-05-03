@@ -20,6 +20,7 @@
         self.width=100;
     }
     return self;
+    //test
 }
 
 -(void)layoutSubviews{
