@@ -268,14 +268,17 @@
 
 -(UITableViewCell *)tableView:(UITableView *)tableView cellForRowAtIndexPath:(NSIndexPath *)indexPath{
     
-    //OUStatus *status=self.statuses[indexPath.row];
-    
-    //OUUser *user=status.user;
-    
     OUStatusFrame *statuFrame=self.statusFrames[indexPath.row];
     OUStatusCell *cell=[OUStatusCell cellWithTableView:tableView];
     cell.statusFrame=statuFrame;
+//    if (statuFrame.status.retweeted_status) {
+//        cell.statusFrame=statuFrame;
+//
+//    }else{
+//        
+//    }
     return cell;
+    
 }
 
 /**

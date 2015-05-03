@@ -67,4 +67,17 @@
  *  cell高度
  */
 @property (nonatomic,assign) CGFloat cellHeight;
+
+/**
+ * 转发微博整体
+ */
+@property (nonatomic,assign) CGRect retweetViewF;
+/**
+ *  转发微博正文
+ */
+@property (nonatomic,assign) CGRect retweetContentLableF;
+/**
+ *  转发微博配图
+ */
+@property (nonatomic,assign) CGRect retweetPhotoF;
 @end

@@ -23,6 +23,9 @@
  */
 @property (nonatomic,strong) OUUser *user;
 
+/**
+ *  创建时间
+ */
 @property (nonatomic,strong) NSString *created_at;
 
 /**
@@ -30,7 +33,15 @@
  */
 @property (nonatomic,strong) NSString *source;
 
+/**
+ *  配图
+ */
 @property (nonatomic,strong) NSArray *pic_urls;
+
+/**
+ *  转发微博
+ */
+@property (nonatomic,strong) OUStatus *retweeted_status;
 
 -(instancetype) initWithDict:(NSDictionary *)dict;
 +(instancetype) statusWithDict:(NSDictionary *)dict;
